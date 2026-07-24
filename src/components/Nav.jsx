@@ -1,17 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useCopy } from '../context.jsx';
+import { DOCS_PATH } from '../constants.js';
+import { GitHubLink, RouteLink, useAnchor } from '../router.jsx';
 import { Wordmark } from './Shield.jsx';
-
-const LINKS = [
-  { label: 'Docs', href: '#how' },
-  { label: 'GitHub', href: '#' },
-  { label: 'Benchmarks', href: '#' },
-  { label: 'Install', href: '#install' },
-];
 
 export function Nav({ theme, onToggleTheme }) {
   const [scrolled, setScrolled] = useState(false);
   const { copied, copy } = useCopy();
+  const anchor = useAnchor();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -28,11 +24,10 @@ export function Nav({ theme, onToggleTheme }) {
         <Wordmark className="sg-nav__brand" />
 
         <nav aria-label="Primary" className="sg-nav__links">
-          {LINKS.map((link) => (
-            <a key={link.label} href={link.href}>
-              {link.label}
-            </a>
-          ))}
+          <RouteLink to={DOCS_PATH}>Docs</RouteLink>
+          <GitHubLink>GitHub</GitHubLink>
+          <a href="#">Benchmarks</a>
+          <a href={anchor('#install')}>Install</a>
         </nav>
 
         <div className="sg-nav__controls">

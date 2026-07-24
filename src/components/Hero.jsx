@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { useCycle, useReducedMotion } from '../context.jsx';
+import { GitHubLink } from '../router.jsx';
 import { InstallBox } from './InstallBox.jsx';
 import { LoadIn } from './Reveal.jsx';
 
@@ -110,12 +111,12 @@ export function Hero() {
             <a href="#install" className="sg-btn sg-btn--primary">
               Get started <span aria-hidden="true">→</span>
             </a>
-            <a href="#" className="sg-btn sg-btn--secondary">
+            <GitHubLink className="sg-btn sg-btn--secondary">
               View on GitHub{' '}
               <span aria-hidden="true" className="sg-btn__ext">
                 ↗
               </span>
-            </a>
+            </GitHubLink>
           </LoadIn>
 
           <LoadIn step={4} style={{ display: 'block' }}>

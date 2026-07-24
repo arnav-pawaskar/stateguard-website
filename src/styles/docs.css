@@ -1,0 +1,49 @@
+/* Docs placeholder page. */
+
+.sg-docs {
+  /* keep the footer at the bottom on a short page: viewport minus nav+footer */
+  min-height: calc(100vh - 380px);
+  display: flex;
+  align-items: center;
+  padding: clamp(56px, 9vw, 120px) 0;
+}
+
+.sg-docs__panel {
+  position: relative;
+  width: min(720px, 100% - 32px);
+  margin: 0 auto;
+  text-align: center;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 26px;
+  padding: clamp(36px, 6vw, 64px) clamp(24px, 5vw, 56px);
+  overflow: hidden;
+}
+
+.sg-docs__h1 {
+  margin: 0 0 18px;
+  font-family: var(--disp);
+  font-size: clamp(38px, 6vw, 62px);
+  line-height: 1;
+  letter-spacing: -0.035em;
+  font-weight: 700;
+}
+
+.sg-docs__lede {
+  margin: 0 auto 30px;
+  max-width: 480px;
+  font-size: clamp(15px, 2vw, 18px);
+  line-height: 1.55;
+  color: var(--fg-2);
+}
+
+.sg-docs__install {
+  margin-bottom: 26px;
+}
+
+.sg-docs__buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+}

@@ -1,3 +1,5 @@
+import { RouteLink } from '../router.jsx';
+
 /** Hexagonal gradient shield glyph with an inset checkmark. Decorative. */
 export function Shield({ small = false }) {
   return (
@@ -7,11 +9,11 @@ export function Shield({ small = false }) {
   );
 }
 
-/** Shield + "StateGuard" lockup. */
+/** Shield + "StateGuard" lockup. Always routes home. */
 export function Wordmark({ small = false, className = '', ...rest }) {
   return (
-    <a
-      href="#top"
+    <RouteLink
+      to="/"
       className={`sg-wordmark ${className}`.trim()}
       aria-label="StateGuard home"
       {...rest}
@@ -20,6 +22,6 @@ export function Wordmark({ small = false, className = '', ...rest }) {
       <span>
         State<span className="sg-grad-text">Guard</span>
       </span>
-    </a>
+    </RouteLink>
   );
 }

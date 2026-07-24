@@ -2,16 +2,18 @@ import { useCallback, useEffect, useState } from 'react';
 import { CopyProvider, MotionProvider } from './context.jsx';
 import { Atmosphere } from './components/Atmosphere.jsx';
 import { Nav } from './components/Nav.jsx';
-import { Hero } from './components/Hero.jsx';
-import { Problem } from './components/Problem.jsx';
-import { HowItWorks } from './components/HowItWorks.jsx';
-import { Features } from './components/Features.jsx';
-import { Showcase } from './components/Showcase.jsx';
-import { SuggestionBox } from './components/SuggestionBox.jsx';
-import { FinalCTA } from './components/FinalCTA.jsx';
 import { Footer } from './components/Footer.jsx';
+import { Landing } from './pages/Landing.jsx';
+import { Docs } from './pages/Docs.jsx';
+import { DOCS_PATH } from './constants.js';
+import { useRoute } from './router.jsx';
 
 const THEME_KEY = 'stateguard-theme';
+
+const TITLES = {
+  '/': 'StateGuard — Self-healing contracts for AI pipelines',
+  [DOCS_PATH]: 'Docs — coming soon · StateGuard',
+};
 
 function readStoredTheme() {
   try {
@@ -26,6 +28,11 @@ function readStoredTheme() {
 export default function App() {
   // dark-mode-first design, but the page loads in light by default
   const [theme, setTheme] = useState(readStoredTheme);
+  const route = useRoute();
+
+  useEffect(() => {
+    document.title = TITLES[route] ?? TITLES['/'];
+  }, [route]);
 
   // theme + accent live on <html> so the background paints edge to edge
   useEffect(() => {
@@ -49,15 +56,7 @@ export default function App() {
           <Atmosphere />
           <div className="sg-content">
             <Nav theme={theme} onToggleTheme={toggleTheme} />
-            <main>
-              <Hero />
-              <Problem />
-              <HowItWorks />
-              <Features />
-              <Showcase />
-              <SuggestionBox />
-              <FinalCTA />
-            </main>
+            <main>{route === DOCS_PATH ? <Docs /> : <Landing />}</main>
             <Footer />
           </div>
         </div>

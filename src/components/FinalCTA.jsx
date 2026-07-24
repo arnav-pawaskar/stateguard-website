@@ -1,3 +1,5 @@
+import { DOCS_PATH } from '../constants.js';
+import { GitHubLink, RouteLink } from '../router.jsx';
 import { InstallBox } from './InstallBox.jsx';
 import { Reveal } from './Reveal.jsx';
 
@@ -20,15 +22,15 @@ export function FinalCTA() {
           <InstallBox id="cta" className="sg-cta__install" />
 
           <div className="sg-cta__buttons">
-            <a href="#" className="sg-btn sg-btn--primary">
+            <RouteLink to={DOCS_PATH} className="sg-btn sg-btn--primary">
               Read the docs <span aria-hidden="true">→</span>
-            </a>
-            <a href="#" className="sg-btn sg-btn--secondary">
+            </RouteLink>
+            <GitHubLink className="sg-btn sg-btn--secondary">
               View on GitHub{' '}
               <span aria-hidden="true" className="sg-btn__ext">
                 ↗
               </span>
-            </a>
+            </GitHubLink>
           </div>
         </div>
       </Reveal>

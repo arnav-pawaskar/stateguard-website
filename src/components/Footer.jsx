@@ -1,32 +1,36 @@
+import { DOCS_PATH } from '../constants.js';
+import { GitHubLink, RouteLink, useAnchor } from '../router.jsx';
 import { Wordmark } from './Shield.jsx';
 
-const COLUMNS = [
-  {
-    title: 'Product',
-    links: [
-      { label: 'Docs', href: '#' },
-      { label: 'How it works', href: '#how' },
-      { label: 'Benchmarks', href: '#' },
-    ],
-  },
-  {
-    title: 'Source',
-    links: [
-      { label: 'GitHub', href: '#' },
-      { label: 'Changelog', href: '#' },
-      { label: 'Issues', href: '#' },
-    ],
-  },
-  {
-    title: 'Legal',
-    links: [
-      { label: 'License · Apache-2.0', href: '#' },
-      { label: 'Install', href: '#install' },
-    ],
-  },
-];
-
 export function Footer() {
+  const anchor = useAnchor();
+
+  const COLUMNS = [
+    {
+      title: 'Product',
+      links: [
+        { label: 'Docs', to: DOCS_PATH },
+        { label: 'How it works', href: anchor('#how') },
+        { label: 'Benchmarks', href: '#' },
+      ],
+    },
+    {
+      title: 'Source',
+      links: [
+        { label: 'GitHub', github: true },
+        { label: 'Changelog', href: '#' },
+        { label: 'Issues', href: '#' },
+      ],
+    },
+    {
+      title: 'Legal',
+      links: [
+        { label: 'License · Apache-2.0', href: '#' },
+        { label: 'Install', href: anchor('#install') },
+      ],
+    },
+  ];
+
   return (
     <footer className="sg-footer">
       <div className="sg-container">
@@ -42,11 +46,23 @@ export function Footer() {
             <div key={col.title}>
               <div className="sg-footer__coltitle">{col.title}</div>
               <div className="sg-footer__links">
-                {col.links.map((link) => (
-                  <a key={link.label} href={link.href}>
-                    {link.label}
-                  </a>
-                ))}
+                {col.links.map((link) => {
+                  if (link.to) {
+                    return (
+                      <RouteLink key={link.label} to={link.to}>
+                        {link.label}
+                      </RouteLink>
+                    );
+                  }
+                  if (link.github) {
+                    return <GitHubLink key={link.label}>{link.label}</GitHubLink>;
+                  }
+                  return (
+                    <a key={link.label} href={link.href}>
+                      {link.label}
+                    </a>
+                  );
+                })}
               </div>
             </div>
           ))}
