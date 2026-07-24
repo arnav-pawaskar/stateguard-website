@@ -26,7 +26,7 @@ export function Nav({ theme, onToggleTheme }) {
         <nav aria-label="Primary" className="sg-nav__links">
           <RouteLink to={DOCS_PATH}>Docs</RouteLink>
           <GitHubLink>GitHub</GitHubLink>
-          <a href="#">Benchmarks</a>
+          <a href={anchor('#how')}>How it works</a>
           <a href={anchor('#install')}>Install</a>
         </nav>
 

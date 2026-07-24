@@ -49,15 +49,17 @@ In-page anchors (`#how`, `#install`) only resolve on the landing page, so
 `useAnchor()` rewrites them to `/#how` when rendered anywhere else.
 
 **Deploying:** `/docs` needs a history fallback to `index.html`. Vite's dev
-server and `npm run preview` do this already; a static host does not. Netlify:
-`/* /index.html 200` in `_redirects`. Vercel: a rewrite to `/index.html`.
-Nginx: `try_files $uri /index.html;`.
+server and `npm run preview` do this already; a static host does not. This is
+configured — `vercel.json` (rewrite + cache + security headers) and
+`public/_redirects` (Netlify, Cloudflare Pages). See [DEPLOY.md](DEPLOY.md) for
+the full plan, including the Nginx equivalent.
 
 ## Links
 
-The GitHub links (nav, hero, final CTA, footer) point at
-`https://github.com/dood1ebyte/stateguard` and open in a new tab with
-`rel="noopener noreferrer"`. The URL lives in `src/constants.js`.
+Every off-site URL lives in `src/constants.js` and is rendered through
+`ExternalLink` / `GitHubLink` in `router.jsx`, so they all open in a new tab with
+`rel="noopener noreferrer"`. Alongside the repo root, the footer links Changelog,
+Issues and License straight into the repo. There are no `#` placeholder links.
 
 Docs links (nav, final CTA, footer) route to `/docs`, which is a styled
 "coming soon" placeholder — replace `src/pages/Docs.jsx` when real docs exist.
@@ -89,7 +91,13 @@ repair loop never start.
 
 ## Not wired up
 
-The suggestion form is local state only — it does not POST anywhere. Wire
-`SuggestionBox.jsx`'s `submit` to a real endpoint.
+**The suggestion form is local state only** — it does not POST anywhere, but the
+UI tells the user it reached the maintainers. This is a launch blocker; see
+[DEPLOY.md](DEPLOY.md) for the options.
 
-Benchmarks, Changelog, Issues and License are still `#` placeholders.
+`https://stateguard.dev` is hardcoded as the site origin in `index.html`
+(canonical, `og:url`), `public/robots.txt`, `public/sitemap.xml` and `SITE_URL`
+in `src/constants.js`. Change all five if the domain differs.
+
+No `og:image` — social cards are text-only until a 1200×630 `og.png` exists
+(scrapers don't render the SVG favicon).

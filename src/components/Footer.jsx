@@ -1,5 +1,5 @@
-import { DOCS_PATH } from '../constants.js';
-import { GitHubLink, RouteLink, useAnchor } from '../router.jsx';
+import { CHANGELOG_URL, DOCS_PATH, ISSUES_URL, LICENSE_URL } from '../constants.js';
+import { ExternalLink, GitHubLink, RouteLink, useAnchor } from '../router.jsx';
 import { Wordmark } from './Shield.jsx';
 
 export function Footer() {
@@ -11,23 +11,20 @@ export function Footer() {
       links: [
         { label: 'Docs', to: DOCS_PATH },
         { label: 'How it works', href: anchor('#how') },
-        { label: 'Benchmarks', href: '#' },
+        { label: 'Install', href: anchor('#install') },
       ],
     },
     {
       title: 'Source',
       links: [
         { label: 'GitHub', github: true },
-        { label: 'Changelog', href: '#' },
-        { label: 'Issues', href: '#' },
+        { label: 'Changelog', external: CHANGELOG_URL },
+        { label: 'Issues', external: ISSUES_URL },
       ],
     },
     {
       title: 'Legal',
-      links: [
-        { label: 'License · Apache-2.0', href: '#' },
-        { label: 'Install', href: anchor('#install') },
-      ],
+      links: [{ label: 'License · Apache-2.0', external: LICENSE_URL }],
     },
   ];
 
@@ -56,6 +53,13 @@ export function Footer() {
                   }
                   if (link.github) {
                     return <GitHubLink key={link.label}>{link.label}</GitHubLink>;
+                  }
+                  if (link.external) {
+                    return (
+                      <ExternalLink key={link.label} href={link.external}>
+                        {link.label}
+                      </ExternalLink>
+                    );
                   }
                   return (
                     <a key={link.label} href={link.href}>

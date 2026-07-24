@@ -51,12 +51,21 @@ export function RouteLink({ to, children, ...rest }) {
   );
 }
 
-/** External link to the repo. */
-export function GitHubLink({ children, ...rest }) {
+/** Any off-site link — new tab, and never leaks the referrer opener. */
+export function ExternalLink({ href, children, ...rest }) {
   return (
-    <a href={GITHUB_URL} target="_blank" rel="noopener noreferrer" {...rest}>
+    <a href={href} target="_blank" rel="noopener noreferrer" {...rest}>
       {children}
     </a>
+  );
+}
+
+/** External link to the repo root. */
+export function GitHubLink({ children, ...rest }) {
+  return (
+    <ExternalLink href={GITHUB_URL} {...rest}>
+      {children}
+    </ExternalLink>
   );
 }
 
