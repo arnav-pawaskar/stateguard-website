@@ -1,0 +1,268 @@
+/* Hero — copy on the left, the live repair terminal on the right. */
+
+.sg-hero {
+  padding: clamp(48px, 7vw, 96px) 0 clamp(40px, 6vw, 72px);
+  position: relative;
+}
+
+/* faint hexagon-masked grid watermark behind the hero */
+.sg-hero__watermark {
+  position: absolute;
+  top: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(1200px, 120%);
+  height: 520px;
+  background: var(--grid);
+  opacity: 0.5;
+  pointer-events: none;
+  --sg-hex: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 116'%3E%3Cpath d='M50 2 98 17 98 60 50 114 2 60 2 17Z' fill='black'/%3E%3C/svg%3E");
+  -webkit-mask-image: var(--sg-hex);
+  mask-image: var(--sg-hex);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+}
+
+.sg-hero__grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(32px, 5vw, 60px);
+  align-items: center;
+  position: relative;
+}
+
+.sg-hero__copy {
+  flex: 1 1 440px;
+  min-width: min(100%, 440px);
+}
+
+.sg-hero__terminal-col {
+  flex: 1 1 400px;
+  min-width: min(100%, 340px);
+}
+
+/* ---------- eyebrow pill ---------- */
+
+.sg-hero__pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-family: var(--mono);
+  font-size: 11.5px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent);
+  border: 1px solid var(--border);
+  background: var(--grad-soft);
+  border-radius: 999px;
+  padding: 6px 13px;
+  margin-bottom: 24px;
+}
+
+.sg-hero__pill-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  animation: sg-pulse 2.4s ease-in-out infinite;
+}
+
+/* ---------- headline ---------- */
+
+.sg-hero__h1 {
+  margin: 0 0 22px;
+  font-family: var(--disp);
+  font-size: clamp(42px, 6.6vw, 72px);
+  line-height: 0.98;
+  letter-spacing: -0.035em;
+  font-weight: 700;
+}
+
+.sg-hero__shimmer {
+  background: var(--grad);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: sg-shimmer 5s linear infinite alternate;
+}
+
+.sg-hero__sub {
+  margin: 0 0 32px;
+  max-width: 566px;
+  font-size: clamp(16px, 2.1vw, 19.5px);
+  line-height: 1.55;
+  color: var(--fg-2);
+}
+
+.sg-hero__ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 26px;
+}
+
+/* ---------- repair terminal ---------- */
+
+.sg-term {
+  position: relative;
+  animation: sg-float 7s ease-in-out infinite;
+}
+
+/* 1px gradient ring, drawn with the mask-composite trick */
+.sg-term__ring {
+  position: absolute;
+  inset: -1px;
+  border-radius: 18px;
+  padding: 1px;
+  background: var(--grad);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.sg-term__body {
+  position: relative;
+  background: var(--code-bg);
+  border: 1px solid var(--code-border);
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 50px 110px -50px rgba(0, 0, 0, 0.85);
+}
+
+.sg-term__bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 16px;
+  border-bottom: 1px solid var(--code-border);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.03), transparent);
+}
+
+.sg-term__dot {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  opacity: 0.7;
+}
+
+.sg-term__dot--red { background: #ff6b6b; }
+.sg-term__dot--amber { background: #f6c85a; }
+.sg-term__dot--green { background: #3ddc97; }
+
+.sg-term__title {
+  margin-left: 8px;
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--fg-3);
+}
+
+.sg-term__json {
+  padding: 22px 22px 8px;
+  font-family: var(--mono);
+  font-size: 14.5px;
+  line-height: 1.85;
+  color: var(--code-fg);
+}
+
+.sg-term__indent {
+  padding-left: 20px;
+}
+
+/* the two values that morph between PENDING and SUCCESS */
+.sg-term__morph {
+  transition: color 0.5s ease;
+}
+
+.sg-term__foot {
+  padding: 15px 22px 22px;
+  border-top: 1px solid var(--code-border);
+  margin-top: 8px;
+}
+
+.sg-term__statusrow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.sg-term__status {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--mono);
+  font-size: 12.5px;
+  padding: 6px 13px;
+  border-radius: 999px;
+  transition: background 0.5s ease, color 0.5s ease, border-color 0.5s ease;
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--fg-3);
+  border: 1px solid var(--code-border);
+}
+
+.sg-term__status.is-success {
+  background: rgba(61, 220, 151, 0.12);
+  color: var(--green);
+  border-color: rgba(61, 220, 151, 0.4);
+}
+
+.sg-term__status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.sg-term__replay {
+  font-family: var(--mono);
+  font-size: 11.5px;
+  color: var(--fg-3);
+  background: transparent;
+  border: 1px solid var(--code-border-2);
+  border-radius: 8px;
+  padding: 6px 11px;
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.sg-term__replay:hover {
+  color: var(--code-fg);
+  border-color: var(--code-fg-2);
+}
+
+.sg-term__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 14px;
+  transition: opacity 0.5s ease;
+  opacity: 0.25;
+}
+
+.sg-term__chips.is-success {
+  opacity: 1;
+}
+
+.sg-term__chip {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--code-fg);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--code-border);
+  border-radius: 8px;
+  padding: 4px 9px;
+}
+
+.sg-term__chip strong {
+  color: var(--accent);
+  font-weight: 400;
+}

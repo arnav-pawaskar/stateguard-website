@@ -1,0 +1,317 @@
+/* Reset, base typography, shared primitives and keyframes. */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--accent-2);
+}
+
+button {
+  font-family: inherit;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--accent) 32%, transparent);
+  color: var(--fg);
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ---------- layout primitives ---------- */
+
+.sg-root {
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+}
+
+.sg-content {
+  position: relative;
+  z-index: 2;
+}
+
+.sg-container {
+  width: min(1180px, 100% - 32px);
+  margin: 0 auto;
+}
+
+.sg-container--narrow {
+  width: min(1000px, 100% - 32px);
+}
+
+.sg-section {
+  padding: clamp(52px, 7vw, 100px) 0;
+}
+
+.sg-section--band {
+  background: var(--bg-2);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+/* ---------- shared type ---------- */
+
+.sg-eyebrow {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 16px;
+}
+
+.sg-h2 {
+  margin: 0 0 16px;
+  font-family: var(--disp);
+  font-size: clamp(30px, 4.4vw, 46px);
+  line-height: 1.04;
+  letter-spacing: -0.025em;
+  font-weight: 700;
+}
+
+.sg-lede {
+  margin: 0;
+  font-size: clamp(15px, 2vw, 18px);
+  color: var(--fg-2);
+  line-height: 1.55;
+}
+
+.sg-mono-inline {
+  font-family: var(--mono);
+  color: var(--fg);
+}
+
+/* ---------- gradient text ---------- */
+
+.sg-grad-text {
+  background: var(--grad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* ---------- buttons ---------- */
+
+.sg-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border-radius: 12px;
+  padding: 14px 24px;
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+  transition: transform 0.16s, box-shadow 0.16s, border-color 0.2s;
+}
+
+.sg-btn--primary {
+  background: var(--grad);
+  color: var(--accent-fg);
+  border: none;
+  box-shadow: 0 16px 44px -16px var(--accent);
+}
+
+.sg-btn--primary:hover {
+  color: var(--accent-fg);
+  transform: translateY(-2px);
+  box-shadow: 0 22px 54px -16px var(--accent);
+}
+
+.sg-btn--secondary {
+  background: var(--panel-2);
+  color: var(--fg);
+  border: 1px solid var(--border-2);
+}
+
+.sg-btn--secondary:hover {
+  color: var(--fg);
+  transform: translateY(-2px);
+  border-color: var(--fg-3);
+}
+
+.sg-btn__ext {
+  color: var(--fg-3);
+}
+
+/* ---------- install command box ---------- */
+
+.sg-install {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  background: var(--code-bg);
+  border: 1px solid var(--code-border);
+  border-radius: 13px;
+  padding: 13px 15px;
+  font-family: var(--mono);
+  font-size: 14px;
+  max-width: 100%;
+  color: var(--code-fg);
+  box-shadow: 0 20px 50px -34px #000;
+}
+
+.sg-install__prompt {
+  color: var(--accent);
+}
+
+.sg-install__cmd {
+  white-space: nowrap;
+  overflow-x: auto;
+}
+
+.sg-install__copy {
+  margin-left: auto;
+  flex: none;
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--accent);
+  background: transparent;
+  border: 1px solid var(--code-border-2);
+  border-radius: 8px;
+  padding: 6px 10px;
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+
+.sg-install__copy:hover {
+  border-color: var(--accent);
+}
+
+/* ---------- code surfaces ---------- */
+
+.sg-code {
+  background: var(--code-bg);
+  border: 1px solid var(--code-border);
+  border-radius: 18px;
+  overflow: hidden;
+}
+
+.sg-pre {
+  margin: 0;
+  padding: 20px;
+  overflow-x: auto;
+  font-family: var(--mono);
+  font-size: 12.8px;
+  line-height: 1.72;
+  color: var(--code-fg);
+}
+
+.tok-key { color: var(--tok-key); }
+.tok-str { color: var(--tok-str); }
+.tok-fn { color: var(--tok-fn); }
+.tok-num { color: var(--tok-num); }
+.tok-com { color: var(--tok-com); }
+.tok-punct { color: var(--tok-punct); }
+.tok-ok { color: var(--green); }
+.tok-err { color: var(--red); }
+.tok-accent { color: var(--accent); }
+.tok-muted { color: var(--code-fg-2); }
+.tok-dim { color: var(--fg-3); }
+
+/* ---------- gradient hairline across the top of a panel ---------- */
+
+.sg-hairline {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--grad);
+  opacity: 0.5;
+}
+
+/* ---------- accessible-but-hidden ---------- */
+
+.sg-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* ---------- scroll reveal / load-in ---------- */
+
+.sg-reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.sg-reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+.sg-load {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.7s cubic-bezier(0.2, 0.7, 0.2, 1),
+    transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.sg-load.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* ---------- keyframes ---------- */
+
+@keyframes sg-pulse {
+  0%, 100% { opacity: 0.4; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.25); }
+}
+
+@keyframes sg-shimmer {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+
+@keyframes sg-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+  }
+
+  html {
+    scroll-behavior: auto;
+  }
+
+  .sg-reveal,
+  .sg-load {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

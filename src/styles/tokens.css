@@ -1,0 +1,100 @@
+/* Design tokens. Dark is the base token set; light overrides via [data-theme="light"].
+   Code surfaces stay dark in BOTH themes — only --code-fg is forced light so it stays
+   legible over the dark code background. */
+
+:root {
+  --sans: 'Space Grotesk', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --disp: 'Bricolage Grotesque', 'Space Grotesk', sans-serif;
+  --mono: 'JetBrains Mono', 'SF Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  --bg: #070810;
+  --bg-2: #0d0f1a;
+  --bg-3: #141827;
+  --border: rgba(255, 255, 255, 0.09);
+  --border-2: rgba(255, 255, 255, 0.17);
+
+  --fg: #edeff6;
+  --fg-2: #98a0b6;
+  --fg-3: #616982;
+
+  --accent: #22e0c4;
+  --accent-2: #8b7bff;
+  --accent-fg: #04140f;
+
+  --grad: linear-gradient(105deg, #22e0c4, #8b7bff);
+  --grad-soft: linear-gradient(105deg, rgba(34, 224, 196, 0.16), rgba(139, 123, 255, 0.16));
+  --glow: rgba(34, 224, 196, 0.16);
+  --glow-2: rgba(139, 123, 255, 0.18);
+
+  /* reserved strictly for repair-success / error-before states */
+  --green: #3ddc97;
+  --red: #ff6b6b;
+
+  --code-bg: #0a0c14;
+  --code-fg: #e7eaf3;
+  --code-border: rgba(255, 255, 255, 0.08);
+  /* Muted text and hairlines that sit ON a code surface. Code surfaces stay
+     dark in both themes, so these must NOT flip with the theme — the light
+     theme's --fg-2 lands at 2.44:1 on --code-bg, and --border all but
+     disappears. Same reasoning that keeps --code-fg light. */
+  --code-fg-2: #98a0b6;
+  --code-border-2: rgba(255, 255, 255, 0.17);
+
+  --tok-key: #ff86c0;
+  --tok-str: #a6e07a;
+  --tok-fn: #7db4ff;
+  --tok-num: #f6a06a;
+  --tok-com: #5c6377;
+  --tok-punct: #8b93a9;
+
+  --grid: rgba(255, 255, 255, 0.04);
+  --panel: rgba(255, 255, 255, 0.02);
+  --panel-2: rgba(255, 255, 255, 0.035);
+  --grain: 0.05;
+}
+
+[data-theme='light'] {
+  --bg: #f4f2ea;
+  --bg-2: #fbfaf5;
+  --bg-3: #ece9dd;
+  --border: rgba(28, 24, 16, 0.13);
+  --border-2: rgba(28, 24, 16, 0.22);
+
+  --fg: #171410;
+  --fg-2: #565044;
+  --fg-3: #8a8474;
+
+  --accent: #0b9c86;
+  --accent-2: #6d4bd6;
+  --accent-fg: #ffffff;
+
+  --grad: linear-gradient(105deg, #0b9c86, #6d4bd6);
+  --grad-soft: linear-gradient(105deg, rgba(11, 156, 134, 0.12), rgba(109, 75, 214, 0.12));
+  --glow: rgba(11, 156, 134, 0.14);
+  --glow-2: rgba(109, 75, 214, 0.14);
+
+  --green: #0f9d63;
+  --red: #d64545;
+
+  --grid: rgba(28, 24, 16, 0.05);
+  --panel: rgba(255, 255, 255, 0.55);
+  --panel-2: rgba(255, 255, 255, 0.72);
+  --grain: 0.035;
+}
+
+/* Optional accent variant — swaps the gradient to lead with violet. */
+[data-accent='violet'] {
+  --accent: #a78bfa;
+  --accent-2: #22e0c4;
+  --accent-fg: #0c0a1a;
+  --grad: linear-gradient(105deg, #a78bfa, #22e0c4);
+  --glow: rgba(167, 139, 250, 0.2);
+}
+
+[data-theme='light'][data-accent='violet'] {
+  --accent: #6d4bd6;
+  --accent-2: #0b9c86;
+  --accent-fg: #fff;
+  --grad: linear-gradient(105deg, #6d4bd6, #0b9c86);
+  --glow: rgba(109, 75, 214, 0.14);
+}

@@ -1,0 +1,67 @@
+/* Features grid. */
+
+.sg-features__head {
+  max-width: 660px;
+  margin-bottom: 48px;
+}
+
+.sg-features__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+  gap: 18px;
+}
+
+.sg-feature {
+  position: relative;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 26px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  overflow: hidden;
+  transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+}
+
+.sg-feature:hover {
+  transform: translateY(-4px);
+  border-color: var(--border-2);
+  box-shadow: 0 24px 50px -34px var(--accent);
+}
+
+.sg-feature__icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: var(--grad-soft);
+  border: 1px solid var(--border);
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--mono);
+  font-size: 20px;
+  flex: none;
+}
+
+.sg-feature__title {
+  margin: 0;
+  font-family: var(--disp);
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+}
+
+.sg-feature__body {
+  margin: 0;
+  font-size: 14.5px;
+  line-height: 1.55;
+  color: var(--fg-2);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sg-feature:hover {
+    transform: none;
+  }
+}

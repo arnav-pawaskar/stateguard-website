@@ -1,0 +1,116 @@
+/* How it works — flow diagram with the auto-cycling repair engine. */
+
+.sg-how__head {
+  text-align: center;
+  max-width: 660px;
+  margin: 0 auto 52px;
+}
+
+.sg-how__flow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-bottom: 28px;
+}
+
+.sg-how__node {
+  background: var(--panel-2);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 16px 20px;
+  text-align: center;
+  min-width: 132px;
+}
+
+.sg-how__node--validated {
+  border-color: rgba(61, 220, 151, 0.35);
+}
+
+.sg-how__nodelabel {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--fg-3);
+  margin-bottom: 5px;
+}
+
+.sg-how__node--validated .sg-how__nodelabel {
+  color: var(--green);
+}
+
+.sg-how__nodename {
+  font-weight: 600;
+}
+
+.sg-how__arrow {
+  color: var(--accent);
+  font-size: 20px;
+}
+
+.sg-how__arrow--out {
+  color: var(--green);
+}
+
+/* ---------- repair engine ---------- */
+
+.sg-how__engine {
+  position: relative;
+  background: var(--code-bg);
+  border: 1px solid transparent;
+  border-radius: 15px;
+  padding: 18px;
+  min-width: min(100%, 320px);
+  box-shadow: 0 0 50px -22px var(--accent), 0 0 0 1px var(--glow);
+}
+
+.sg-how__enginelabel {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--accent);
+  margin-bottom: 13px;
+  text-align: center;
+  letter-spacing: 0.08em;
+}
+
+.sg-how__chips {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 9px;
+}
+
+.sg-how__chip {
+  padding: 9px 10px;
+  border-radius: 10px;
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 600;
+  text-align: center;
+  transition: all 0.3s ease;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--code-border);
+  color: var(--code-fg-2);
+}
+
+.sg-how__chip.is-active {
+  background: var(--grad-soft);
+  border-color: var(--accent);
+  color: var(--accent);
+  box-shadow: 0 0 24px -8px var(--accent);
+}
+
+.sg-how__caption {
+  text-align: center;
+  font-size: 15.5px;
+  color: var(--fg-2);
+  max-width: 660px;
+  margin: 0 auto;
+  min-height: 48px;
+  line-height: 1.5;
+}
+
+.sg-how__caption strong {
+  color: var(--accent);
+  font-family: var(--mono);
+  font-size: 14px;
+}

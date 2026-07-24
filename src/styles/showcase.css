@@ -1,0 +1,51 @@
+/* Tabbed code / CLI showcase. */
+
+.sg-showcase__head {
+  text-align: center;
+  max-width: 620px;
+  margin: 0 auto 38px;
+}
+
+.sg-showcase__tabs {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+
+.sg-showcase__tab {
+  padding: 10px 16px;
+  border-radius: 11px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: var(--sans);
+  transition: all 0.2s ease;
+  background: var(--panel-2);
+  color: var(--fg-2);
+  border: 1px solid var(--border);
+}
+
+.sg-showcase__tab:hover {
+  color: var(--fg);
+}
+
+.sg-showcase__tab.is-active {
+  background: var(--grad);
+  color: var(--accent-fg);
+  border-color: transparent;
+}
+
+.sg-showcase__panel {
+  box-shadow: 0 40px 90px -56px #000;
+}
+
+.sg-showcase__pre {
+  padding: 24px;
+  font-size: 13.5px;
+  line-height: 1.75;
+}
+
+.sg-showcase__pre--cli {
+  line-height: 1.8;
+}
