@@ -24,7 +24,7 @@ export function Footer() {
     },
     {
       title: 'Legal',
-      links: [{ label: 'License · Apache-2.0', external: LICENSE_URL }],
+      links: [{ label: 'License', external: LICENSE_URL }],
     },
   ];
 
@@ -35,7 +35,7 @@ export function Footer() {
           <div>
             <Wordmark small className="sg-footer__brand" />
             <p className="sg-footer__tagline">
-              Self-healing runtime contracts for AI systems. Apache 2.0.
+              Self-healing runtime contracts for AI systems.
             </p>
           </div>
 
@@ -74,7 +74,6 @@ export function Footer() {
 
         <div className="sg-footer__bottom">
           <span>© 2026 StateGuard contributors</span>
-          <span>Apache-2.0 · Python 3.11+ · zero runtime deps</span>
         </div>
       </div>
     </footer>

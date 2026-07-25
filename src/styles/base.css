@@ -47,7 +47,13 @@ button {
 .sg-root {
   min-height: 100vh;
   position: relative;
-  overflow-x: hidden;
+  /* `clip`, not `hidden`. Both contain the atmosphere layers' horizontal
+     bleed, but `overflow-x: hidden` computes overflow-y to `auto`, which makes
+     this element a scroll container — and that silently breaks the nav's
+     `position: sticky`, since sticky resolves against the nearest scrolling
+     ancestor's scrollport rather than the viewport. `clip` establishes no
+     scrollport, so the nav pins to the viewport as intended. */
+  overflow-x: clip;
 }
 
 .sg-content {

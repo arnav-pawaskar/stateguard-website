@@ -1,26 +1,84 @@
-/* Sticky nav — transparent at the top, blurred once scrolled. */
+/* Sticky nav — transparent over the hero, resolving into a floating blurred bar
+   once the page scrolls away from it. Always pinned; it never hides.
+
+   The background, blur, hairline and shadow all live on ::before rather than on
+   the nav itself, and the transition animates that one layer's opacity. Two
+   reasons: `backdrop-filter` is not an interpolatable property (every engine
+   snaps it, so fading it alongside the background looks broken), and opacity is
+   compositor-only, so the fade costs nothing per frame. The layer exists from
+   first paint at opacity 0, which also means no compositing layer gets created
+   mid-scroll. */
 
 .sg-nav {
   position: sticky;
   top: 0;
   z-index: 50;
-  border-bottom: 1px solid transparent;
-  transition: background 0.3s, border-color 0.3s, backdrop-filter 0.3s;
+  /* Half of .sg-container's 1180px max-width, plus the 16px the pill overhangs
+     its contents by. If that container width changes, change this with it. */
+  --sg-pill-half: 606px;
+  /* Edge margin once the viewport is too narrow for the line above to apply. */
+  --sg-pill-edge: 8px;
 }
 
-.sg-nav.is-scrolled {
+/* The layer starts edge-to-edge and invisible, then contracts inward as it fades
+   in — so scrolling away from the hero reads as the bar gathering itself into a
+   floating pill rather than a panel switching on.
+
+   The horizontal inset is derived from the content container, not picked: the
+   container is `min(1180px, 100% - 32px)`, so half of it is 590px, and 606px
+   leaves the pill 16px wider than its contents on each side. Below ~1212px the
+   `max()` floor takes over and the pill sits 8px off each edge, staying just
+   outside the container's own 16px margin. */
+.sg-nav::before {
+  content: '';
+  position: absolute;
+  /* individual offsets rather than `inset`, so each one is transitionable */
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  /* behind the nav's own content but inside its stacking context */
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0;
+  border-radius: 0;
   background: color-mix(in srgb, var(--bg) 72%, transparent);
   -webkit-backdrop-filter: saturate(160%) blur(14px);
   backdrop-filter: saturate(160%) blur(14px);
-  border-bottom-color: var(--border);
+  border: 1px solid var(--border);
+  box-shadow: 0 12px 32px -12px rgba(0, 0, 0, 0.55);
+  transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    top 0.3s cubic-bezier(0.4, 0, 0.2, 1), right 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    bottom 0.3s cubic-bezier(0.4, 0, 0.2, 1), left 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    border-radius 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+.sg-nav.is-scrolled::before {
+  opacity: 1;
+  top: 7px;
+  bottom: 7px;
+  left: max(var(--sg-pill-edge), calc(50% - var(--sg-pill-half)));
+  right: max(var(--sg-pill-edge), calc(50% - var(--sg-pill-half)));
+  border-radius: 18px;
+}
+
+/* Padding is deliberately constant across both states. It is what gives the pill
+   its internal breathing room — the nav is 63px tall around 32px of content, so
+   the 7px inset leaves a 49px pill with ~8px of air. Compressing it on scroll
+   would squeeze that to ~4px, and because the nav is in flow it was also the
+   only thing in this transition that reflowed the page. */
 .sg-nav__inner {
   display: flex;
   align-items: center;
   gap: 14px 24px;
   flex-wrap: wrap;
   padding: 14px 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sg-nav::before {
+    transition: none;
+  }
 }
 
 /* ---------- wordmark ---------- */
