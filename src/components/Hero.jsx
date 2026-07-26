@@ -59,10 +59,11 @@ function RepairTerminal() {
 
         <div className="sg-term__foot">
           <div className="sg-term__statusrow">
-            <span
-              aria-live="polite"
-              className={`sg-term__status${repaired ? ' is-success' : ''}`}
-            >
+            {/* No aria-live: this flips every 2.8s forever, so announcing it would
+                mean a screen reader narrating a decorative demo loop for as long as
+                the page is open. The text stays in the DOM and is readable on
+                demand. */}
+            <span className={`sg-term__status${repaired ? ' is-success' : ''}`}>
               <span aria-hidden="true" className="sg-term__status-dot" />
               RepairStatus.{repaired ? 'SUCCESS' : 'PENDING'}
             </span>

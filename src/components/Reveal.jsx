@@ -18,11 +18,12 @@ export function Reveal({ delay = 0, as: Tag = 'div', className = '', children, .
       return undefined;
     }
 
+    let timer = 0;
     const io = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (!entry.isIntersecting) return;
-          setTimeout(() => setVisible(true), delay);
+          timer = setTimeout(() => setVisible(true), delay);
           io.unobserve(entry.target);
         });
       },
@@ -30,7 +31,11 @@ export function Reveal({ delay = 0, as: Tag = 'div', className = '', children, .
     );
 
     io.observe(el);
-    return () => io.disconnect();
+    // the timer outlives the observer on a route change mid-delay
+    return () => {
+      clearTimeout(timer);
+      io.disconnect();
+    };
   }, [reduce, delay]);
 
   const classes = [reduce ? '' : 'sg-reveal', visible || reduce ? 'is-visible' : '', className]

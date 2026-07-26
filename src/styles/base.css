@@ -42,6 +42,46 @@ button {
   border-radius: 4px;
 }
 
+/* <main> only takes focus so the skip link can land on it; it should never draw a
+   ring of its own. */
+main:focus,
+main:focus-visible {
+  outline: none;
+}
+
+/* ---------- skip link ---------- */
+
+/* Off-screen rather than display:none — a hidden element is not focusable, and
+   this has to be reachable by Tab. */
+.sg-skip {
+  position: fixed;
+  top: 8px;
+  left: 8px;
+  z-index: 200;
+  transform: translateY(-160%);
+  background: var(--panel-2);
+  border: 1px solid var(--border-2);
+  border-radius: 10px;
+  padding: 10px 16px;
+  color: var(--fg);
+  font-size: 14px;
+  font-weight: 600;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: transform 0.18s ease;
+}
+
+.sg-skip:focus {
+  transform: translateY(0);
+  color: var(--fg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sg-skip {
+    transition: none;
+  }
+}
+
 /* ---------- layout primitives ---------- */
 
 .sg-root {

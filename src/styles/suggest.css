@@ -1,4 +1,7 @@
-/* Suggestion box. */
+/* Suggestion box — the landing-page band, and the /suggest page that holds the
+   embedded Google Form. */
+
+/* ---------- landing band ---------- */
 
 .sg-suggest {
   padding: clamp(52px, 7vw, 92px) 0;
@@ -15,6 +18,14 @@
   overflow: hidden;
 }
 
+.sg-suggest__inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 22px 32px;
+  justify-content: space-between;
+}
+
 .sg-suggest__h2 {
   margin: 0 0 10px;
   font-family: var(--disp);
@@ -25,111 +36,89 @@
 }
 
 .sg-suggest__lede {
-  margin: 0 0 24px;
+  margin: 0;
   font-size: 15px;
   color: var(--fg-2);
   line-height: 1.55;
   max-width: 520px;
 }
 
-.sg-suggest__textarea {
-  width: 100%;
-  resize: vertical;
-  background: var(--code-bg);
-  border: 1px solid var(--code-border);
-  border-radius: 13px;
-  padding: 15px 16px;
-  color: var(--code-fg);
-  font-family: var(--mono);
-  font-size: 14px;
-  line-height: 1.55;
-  outline: none;
-  transition: border-color 0.2s;
-}
-
-.sg-suggest__textarea:focus {
-  border-color: var(--accent);
-}
-
-.sg-suggest__row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  align-items: center;
-  justify-content: space-between;
-  margin-top: 14px;
-}
-
-.sg-suggest__count {
-  font-size: 12.5px;
-  color: var(--fg-3);
-  font-family: var(--mono);
-}
-
-.sg-suggest__submit {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: var(--grad);
-  color: var(--accent-fg);
-  border: none;
-  border-radius: 12px;
-  padding: 12px 22px;
-  font-weight: 600;
-  font-size: 14.5px;
-  cursor: pointer;
-  transition: transform 0.15s, opacity 0.2s;
-}
-
-.sg-suggest__submit:hover:not(:disabled) {
-  transform: translateY(-2px);
-}
-
-.sg-suggest__submit:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-/* ---------- submitted state ---------- */
-
-.sg-suggest__done {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  background: rgba(61, 220, 151, 0.1);
-  border: 1px solid rgba(61, 220, 151, 0.4);
-  border-radius: 14px;
-  padding: 18px 20px;
-}
-
-.sg-suggest__donebadge {
-  width: 26px;
-  height: 26px;
+.sg-suggest__cta {
   flex: none;
-  border-radius: 50%;
-  background: var(--green);
-  color: #04140c;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+}
+
+/* ---------- /suggest page ---------- */
+
+.sg-suggestpage__head {
+  margin-bottom: 18px;
+}
+
+.sg-suggestpage__h1 {
+  margin: 0 0 16px;
+  font-family: var(--disp);
+  font-size: clamp(32px, 5vw, 52px);
+  line-height: 1.04;
+  letter-spacing: -0.035em;
   font-weight: 700;
 }
 
-.sg-suggest__donetitle {
-  font-weight: 600;
+.sg-suggestpage__meta {
+  border-left: 2px solid var(--accent);
+  padding-left: 16px;
+  margin-bottom: 34px;
 }
 
-.sg-suggest__donesub {
-  font-size: 13.5px;
+.sg-suggestpage__meta p {
+  margin: 0;
+  max-width: 620px;
+  font-size: 14px;
+  line-height: 1.6;
+  /* --fg-2, not --fg-3: this is the disclosure about what happens to the
+     visitor's name and email. --fg-3 measures 3.45:1 light / 3.66:1 dark, which
+     fails AA for body text — the wrong place to be unreadable. */
   color: var(--fg-2);
 }
 
-.sg-suggest__again {
-  background: none;
-  border: none;
-  color: var(--accent);
-  cursor: pointer;
-  font: inherit;
-  padding: 0;
-  text-decoration: underline;
+/* The frame is a Google Form: cross-origin, so it is white in both themes and no
+   CSS of ours reaches inside it. Committing to a light card — padded, rounded,
+   lifted — makes that read as an inset document rather than a broken surface.
+   The white here is deliberate and must NOT become a theme token. */
+.sg-suggestpage__frame {
+  /* Google maxes the form's own content at 640px regardless of frame width, so a
+     full 1000px card would leave it floating in ~180px of white on each side.
+     800px keeps the card hugging the form with an even gutter. */
+  max-width: 800px;
+  margin: 0 auto;
+  background: #ffffff;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 8px;
+  box-shadow: 0 24px 60px -28px rgba(0, 0, 0, 0.6);
+  /* clips the frame's own square corners to the card's radius */
+  overflow: hidden;
+}
+
+.sg-suggestpage__iframe {
+  display: block;
+  width: 100%;
+  border: 0;
+}
+
+.sg-suggestpage__foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px 24px;
+  margin-top: 26px;
+}
+
+.sg-suggestpage__fallback {
+  margin: 0;
+  max-width: 560px;
+  font-size: 13.5px;
+  line-height: 1.6;
+  /* also --fg-2: this is the recovery path when a blocker kills the iframe, so it
+     has to be readable precisely when the page looks broken */
+  color: var(--fg-2);
 }

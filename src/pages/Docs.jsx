@@ -15,7 +15,7 @@ export function Docs() {
 
         <p className="sg-docs__lede">
           The docs aren&apos;t published yet. In the meantime the README covers install,
-          the four repair strategies and the CLI — and the source is the reference.
+          the four repair strategies and the CLI, and the source is the reference.
         </p>
 
         <InstallBox id="docs" className="sg-docs__install" />

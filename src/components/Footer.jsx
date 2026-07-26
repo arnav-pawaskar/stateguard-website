@@ -1,4 +1,10 @@
-import { CHANGELOG_URL, DOCS_PATH, ISSUES_URL, LICENSE_URL } from '../constants.js';
+import {
+  CHANGELOG_URL,
+  DOCS_PATH,
+  ISSUES_URL,
+  LICENSE_URL,
+  SUGGEST_PATH,
+} from '../constants.js';
 import { ExternalLink, GitHubLink, RouteLink, useAnchor } from '../router.jsx';
 import { Wordmark } from './Shield.jsx';
 
@@ -20,6 +26,7 @@ export function Footer() {
         { label: 'GitHub', github: true },
         { label: 'Changelog', external: CHANGELOG_URL },
         { label: 'Issues', external: ISSUES_URL },
+        { label: 'Suggest a repair', to: SUGGEST_PATH },
       ],
     },
     {

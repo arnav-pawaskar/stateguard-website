@@ -31,6 +31,7 @@ src/
   data/content.js       feature + repair-strategy copy
   pages/
     Landing.jsx         the marketing sections
+    Suggest.jsx         /suggest — embedded Google Form
     Docs.jsx            /docs placeholder
   components/           one file per section, plus Shield/InstallBox/Reveal
   styles/
@@ -41,8 +42,9 @@ src/
 
 ## Routing
 
-Two routes — `/` and `/docs` — handled by `src/router.jsx` rather than a
-routing dependency. `RouteLink` navigates client-side but keeps a real `href`,
+Three routes — `/`, `/suggest` and `/docs` — declared in the `PAGES` table in
+`App.jsx` and resolved by `src/router.jsx` rather than a routing dependency.
+Unknown paths fall back to the landing page. `RouteLink` navigates client-side but keeps a real `href`,
 so middle-click, ctrl-click and "copy link address" behave normally.
 
 In-page anchors (`#how`, `#install`) only resolve on the landing page, so
@@ -89,15 +91,35 @@ scroll reveals and hero load-in render visible immediately, the hero terminal
 renders directly in its `SUCCESS` state, and the repair-strategy cycler and
 repair loop never start.
 
+## Suggestion form
+
+`/suggest` embeds a Google Form. Everything outside the iframe is ours; the form
+itself is cross-origin, so **no CSS of ours reaches inside it** — it renders in
+Google's font and colors in both themes. Rather than half-fight that, the frame is
+presented as a deliberate light card (`.sg-suggestpage__frame`), so it reads as an
+inset document instead of a surface that failed to theme. The `#ffffff` there is
+intentional and must not become a theme token.
+
+Three constraints worth knowing before touching it:
+
+- **`SUGGEST_FORM_HEIGHT` is measured, not computed** — a cross-origin iframe
+  cannot report its content height. Adding or removing a question changes the
+  right value; per-width measurements are in `src/constants.js`. Get it wrong and
+  you get an inner scrollbar or a white gap.
+- **`.sg-suggestpage__frame` is capped at 800px** because Google maxes the form's
+  own content at 640px regardless of frame width. A full-width card would leave
+  the form floating in whitespace.
+- A future CSP must allow `frame-src https://docs.google.com`. See
+  [DEPLOY.md](DEPLOY.md).
+
+The landing page keeps a CTA band (`SuggestionCTA.jsx`) that routes here, and holds
+the `#suggest` id so existing `/#suggest` links still land.
+
 ## Not wired up
 
-**The suggestion form is local state only** — it does not POST anywhere, but the
-UI tells the user it reached the maintainers. This is a launch blocker; see
-[DEPLOY.md](DEPLOY.md) for the options.
-
 `https://stateguard.dev` is hardcoded as the site origin in `index.html`
-(canonical, `og:url`), `public/robots.txt`, `public/sitemap.xml` and `SITE_URL`
-in `src/constants.js`. Change all five if the domain differs.
+(canonical, `og:url`), `public/robots.txt` and `public/sitemap.xml`. Change all
+three if the domain differs.
 
 No `og:image` — social cards are text-only until a 1200×630 `og.png` exists
 (scrapers don't render the SVG favicon).

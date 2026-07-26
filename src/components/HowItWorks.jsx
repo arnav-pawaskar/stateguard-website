@@ -65,7 +65,8 @@ export function HowItWorks() {
           </div>
         </Reveal>
 
-        <p aria-live="polite" className="sg-how__caption">
+        {/* No aria-live — this cycles every 1.7s indefinitely (see Hero.jsx). */}
+        <p className="sg-how__caption">
           <strong>{strategy.name}</strong> — {strategy.desc}
         </p>
       </div>

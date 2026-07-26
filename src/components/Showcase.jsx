@@ -175,6 +175,24 @@ export function Showcase() {
   const [tab, setTab] = useState('python');
   const Panel = PANELS[tab];
 
+  /* Roving tabindex keeps only the selected tab in the tab order, so without this
+     the other two panels are unreachable by keyboard — arrow keys are how you move
+     between tabs in that pattern. Focus has to follow selection, or the user tabs
+     away from a control that just became tabIndex={-1}. */
+  const onTabKeyDown = (e) => {
+    const i = TABS.findIndex((t) => t.id === tab);
+    let next;
+    if (e.key === 'ArrowRight') next = (i + 1) % TABS.length;
+    else if (e.key === 'ArrowLeft') next = (i - 1 + TABS.length) % TABS.length;
+    else if (e.key === 'Home') next = 0;
+    else if (e.key === 'End') next = TABS.length - 1;
+    else return;
+
+    e.preventDefault();
+    setTab(TABS[next].id);
+    document.getElementById(`sg-tab-${TABS[next].id}`)?.focus();
+  };
+
   return (
     <section className="sg-section sg-section--band">
       <div className="sg-container sg-container--narrow">
@@ -186,7 +204,12 @@ export function Showcase() {
         </Reveal>
 
         <Reveal>
-          <div role="tablist" aria-label="Usage examples" className="sg-showcase__tabs">
+          <div
+            role="tablist"
+            aria-label="Usage examples"
+            className="sg-showcase__tabs"
+            onKeyDown={onTabKeyDown}
+          >
             {TABS.map((t) => (
               <button
                 key={t.id}
