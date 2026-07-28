@@ -48,6 +48,15 @@ export function Suggest() {
             height={SUGGEST_FORM_HEIGHT}
             loading="lazy"
             className="sg-suggestpage__iframe"
+            /* Google's own form JS needs allow-scripts + allow-forms to submit,
+               and allow-same-origin so it can use its own cookies/session — that
+               combination is normally avoided together, since a same-origin
+               sandboxed frame can script its way out of the sandbox, but src is
+               pinned to docs.google.com (never user input), so the frame can only
+               ever be Google's own trusted code. allow-popups covers the form's
+               in-page links (e.g. "Privacy") that open in a new tab; nothing else
+               is granted — no allow-top-navigation, no allow-modals. */
+            sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
           >
             Loading…
           </iframe>

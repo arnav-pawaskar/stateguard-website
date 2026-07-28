@@ -102,38 +102,18 @@
   margin-right: auto;
 }
 
-.sg-shield {
-  position: relative;
-  width: 28px;
-  height: 32px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--grad);
-  clip-path: polygon(50% 0, 100% 15%, 100% 52%, 50% 100%, 0 52%, 0 15%);
-  box-shadow: 0 6px 22px -6px var(--accent);
+/* The mark is a square 32×32 viewBox — sized here, colored by the SVG itself
+   (ring on currentColor from .sg-wordmark, bar on --accent/--accent-2). */
+.sg-mark {
+  width: 30px;
+  height: 30px;
+  display: block;
   flex: none;
 }
 
-.sg-shield__check {
-  display: block;
-  width: 6px;
-  height: 11px;
-  border: solid var(--accent-fg);
-  border-width: 0 2.5px 2.5px 0;
-  transform: translateY(-1px) rotate(42deg);
-}
-
-.sg-shield--sm {
-  width: 23px;
-  height: 27px;
-  box-shadow: none;
-}
-
-.sg-shield--sm .sg-shield__check {
-  width: 5px;
-  height: 9px;
-  border-width: 0 2px 2px 0;
+.sg-mark--sm {
+  width: 25px;
+  height: 25px;
 }
 
 /* ---------- links ---------- */

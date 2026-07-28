@@ -38,6 +38,12 @@
     <script>
       // Apply the stored theme before first paint so a dark session never
       // flashes the light default.
+      // CSP allowlists this script by sha256 hash (vercel.json) instead of
+      // 'unsafe-inline' — editing so much as a byte of it (including this
+      // comment) invalidates the hash and the browser silently blocks it,
+      // which just means a light-flash on dark sessions, not a broken page.
+      // Regenerate by hashing the exact text between this script tag's
+      // opening ">" and its closing tag (see scripts/csp-hash.py).
       try {
         var t = localStorage.getItem('stateguard-theme');
         if (t === 'dark' || t === 'light') document.documentElement.dataset.theme = t;

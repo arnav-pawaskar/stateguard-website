@@ -6,7 +6,7 @@ import {
   SUGGEST_PATH,
 } from '../constants.js';
 import { ExternalLink, GitHubLink, RouteLink, useAnchor } from '../router.jsx';
-import { Wordmark } from './Shield.jsx';
+import { Wordmark } from './Logo.jsx';
 
 export function Footer() {
   const anchor = useAnchor();

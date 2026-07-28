@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useCopy } from '../context.jsx';
 import { DOCS_PATH } from '../constants.js';
 import { GitHubLink, RouteLink, useAnchor } from '../router.jsx';
-import { Wordmark } from './Shield.jsx';
+import { Wordmark } from './Logo.jsx';
 
 /* Where the bar stops being part of the hero. Two thresholds, not one: with a
    single value a scroll that lands on it flips the class back and forth, and the

@@ -7,9 +7,9 @@ design prototype.
 ## Stack
 
 React 19 + Vite. Plain CSS with custom properties — no CSS framework, no
-component library, no external images or icon files (the shield, sun/moon
-icons and card glyphs are pure CSS/Unicode; the grain texture is an inline
-SVG `feTurbulence` data URI).
+component library, no external images or icon files (the logo mark is inline
+SVG in `Logo.jsx`; the sun/moon icons and card glyphs are pure CSS/Unicode; the
+grain texture and hero watermark mask are inline SVG data URIs).
 
 ```bash
 npm install
@@ -33,7 +33,7 @@ src/
     Landing.jsx         the marketing sections
     Suggest.jsx         /suggest — embedded Google Form
     Docs.jsx            /docs placeholder
-  components/           one file per section, plus Shield/InstallBox/Reveal
+  components/           one file per section, plus Logo/InstallBox/Reveal
   styles/
     tokens.css          design tokens (dark base, light override)
     base.css            reset, shared primitives, keyframes
@@ -82,6 +82,12 @@ land at 2.44:1 on the dark code background in light theme.
 
 `--green` and `--red` are reserved strictly for repair-success and
 error/before states. They are not general-purpose accents.
+
+The logo mark's bar reads `--accent` / `--accent-2` directly, so changing either
+token restyles the logo along with everything else. `public/favicon.svg` is a
+standalone file that cannot see the tokens — it inlines both palettes and flips
+them with `prefers-color-scheme`, so **a token change has to be mirrored there
+by hand.**
 
 ## Motion
 

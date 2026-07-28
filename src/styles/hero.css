@@ -5,7 +5,8 @@
   position: relative;
 }
 
-/* faint hexagon-masked grid watermark behind the hero */
+/* Faint grid watermark behind the hero, masked into the mark's own C-ring so the
+   backdrop echoes the logo. (Was a hexagon, back when the mark was a shield.) */
 .sg-hero__watermark {
   position: absolute;
   top: -40px;
@@ -16,9 +17,9 @@
   background: var(--grid);
   opacity: 0.5;
   pointer-events: none;
-  --sg-hex: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 116'%3E%3Cpath d='M50 2 98 17 98 60 50 114 2 60 2 17Z' fill='black'/%3E%3C/svg%3E");
-  -webkit-mask-image: var(--sg-hex);
-  mask-image: var(--sg-hex);
+  --sg-ring: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M24.17 8.64A11 11 0 1 0 24.17 23.36' fill='none' stroke='black' stroke-width='4.8' stroke-linecap='round'/%3E%3Crect x='15.5' y='13.6' width='14.5' height='4.8' rx='2.4' fill='black'/%3E%3C/svg%3E");
+  -webkit-mask-image: var(--sg-ring);
+  mask-image: var(--sg-ring);
   -webkit-mask-repeat: no-repeat;
   mask-repeat: no-repeat;
   -webkit-mask-position: center;

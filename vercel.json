@@ -19,7 +19,11 @@
       "headers": [
         { "key": "X-Content-Type-Options", "value": "nosniff" },
         { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
-        { "key": "X-Frame-Options", "value": "DENY" }
+        { "key": "X-Frame-Options", "value": "DENY" },
+        {
+          "key": "Content-Security-Policy",
+          "value": "default-src 'self'; script-src 'self' 'sha256-e+dd8X/YKQwXPXqh5C5fufLqoGHo7mA6uT0c5J42ex4='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; frame-src https://docs.google.com; frame-ancestors 'none'; form-action 'self'; base-uri 'none'; object-src 'none'"
+        }
       ]
     }
   ]
